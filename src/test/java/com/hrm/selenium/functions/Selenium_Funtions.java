@@ -1,7 +1,9 @@
 package com.hrm.selenium.functions;
 
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -35,30 +37,58 @@ public class Selenium_Funtions {
 		// find element by link text
 		driver.findElement(By.linkText("Admin")).click();
 		Isenabled();
+		Isdisplayed();
 		driver.findElement(By.linkText("Time")).click();
 		select_BYValue();
 		select_BYText();
 		select_BYIndex();
 		get_title();
 		Get_currentURL();
+		String parent = driver.getWindowHandle();
 		click_link("Directory");
 		click_link("OrangeHRM, Inc");
-		
-		
-		closedriver();
-		
+		String child = driver.getWindowHandle();
+		driver.switchTo().window(child);
+		Get_currentURL();
+		driver.navigate()
+				.to("https://www.talentzing.com/FreshersCorner/FreshersRegister.aspx");
+		driver.findElement(By.partialLinkText("Site")).click();
+		click_link("Terms & Conditions");
+		click_link("Privacy & Policy");
+
+		Close_childwindow();
+		driver.switchTo().window(parent);
+		driver.quit();
+	}
+
+	public static void Close_childwindow() {
+
+		Set<String> a = driver.getWindowHandles();
+		for (String all : a) {
+
+			driver.switchTo().window(all);
+			String url = driver.getCurrentUrl();
+			if (url.contains("Privacy")) {
+
+				System.out.println("Child url is" + url);
+				driver.close();
+			}
+
+		}
+
 	}
 
 	public static void get_title() {
-		System.out.println(driver.getTitle());
+		System.out.println("title is " + driver.getTitle());
 	}
-    public static void click_link(String xpath){
-    	
-    	driver.findElement(By.linkText(xpath)).click();
-    }
-	
+
+	public static void click_link(String xpath) {
+
+		driver.findElement(By.linkText(xpath)).click();
+	}
+
 	public static void Get_currentURL() {
-		System.out.println(driver.getCurrentUrl());
+		System.out.println("Get current URL " + driver.getCurrentUrl());
 	}
 
 	public static void DeselectAll() {
@@ -102,6 +132,23 @@ public class Selenium_Funtions {
 		boolean check;
 
 		check = driver.findElement(By.className("delete")).isEnabled();
+		System.out.println("Enabled "+check);
+		
+		if (check == true) {
+			System.out.println("Element is enabled");
+		} else {
+
+			System.out.println("Element is Not enabled");
+
+		}
+
+	}
+	public static void Isdisplayed() {
+		boolean check;
+
+		check = driver.findElement(By.className("delete")).isDisplayed();
+		
+		System.out.println("displayed "+check);
 		if (check == true) {
 			System.out.println("Element is enabled");
 		} else {
