@@ -19,8 +19,10 @@ public class Selenium_Funtions {
 
 		// System.setProperty("webdriver.ie.driver",
 		// "C:\\Users\\SRINIVAS\\Documents\\IEDriverServer.exe");
-		System.setProperty("webdriver.chrome.driver",
-				"Drivers\\chromedriver.exe");
+		//System.setProperty("webdriver.chrome.driver",
+			//	"Drivers\\chromedriver.exe");
+
+		System.setProperty("webdriver.chrome.driver","C:\\Users\\SRINIVAS\\Documents\\chromedriver.exe");
 
 		// WebDriver driver =new InternetExplorerDriver();
 		driver = new ChromeDriver();
